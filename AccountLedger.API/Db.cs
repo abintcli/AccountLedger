@@ -2,20 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AccountLedger.API.Models;
 
 namespace AccountLedger.API.DB
 {
-    public class AccountTransaction
-    {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public TransactionType Type { get; set; }
-        public string? Reference { get; set; }
-        public decimal Amount { get; set; }
-    }
-
-    public enum TransactionType { Credit, Debit }
-
     public class TransactionDB
     {
         private static List<AccountTransaction> _transactions = new List<AccountTransaction>(){
