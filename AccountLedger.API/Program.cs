@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using AccountLedger.API.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,5 +18,12 @@ app.UseSwaggerUI(c =>
     });
 
 app.MapGet("/", () => "Hello World!");
+
+//My new Routes for Transactions
+app.MapGet("/transactions/{id}", (int id) => TransactionDB.GetTransaction(id));
+app.MapGet("/transactions", () => TransactionDB.GetTransactions());
+app.MapPost("/transactions", (AccountTransaction transaction) => TransactionDB.CreateTransaction(transaction));
+app.MapPut("/transactions", (AccountTransaction transaction) => TransactionDB.UpdateTransaction(transaction));
+app.MapDelete("/transactions", (int id) => TransactionDB.RemoveTransaction(id));
 
 app.Run();
