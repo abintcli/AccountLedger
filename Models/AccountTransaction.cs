@@ -11,7 +11,18 @@ namespace AccountLedger.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime Date
+        {
+            get
+            {
+                return this.dateCreated ?? DateTime.Now;
+            }
+            set
+            {
+                this.dateCreated = value;
+            }
+        }
+        private DateTime? dateCreated = null;
 
         [Required]
         public TransactionType Type { get; set; }

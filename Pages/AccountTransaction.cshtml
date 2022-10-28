@@ -15,7 +15,7 @@
 
         @* Need to add a dateoicker here *@
         <label asp-for="NewTransaction.Date">Date</label>
-        <input type="text" asp-for="NewTransaction.Date" class="mr-5">
+        <input asp-for="NewTransaction.Date" class="mr-5" asp-format="{0:yyyy-MM-ddTHH:mm}">
 
         <label asp-for="NewTransaction.Type">Transaction Type</label>
         <select asp-for="NewTransaction.Type" asp-items="Html.GetEnumSelectList<TransactionType>()"
@@ -47,8 +47,8 @@
             <td>@transaction.Date</td>
             <td>@transaction.Type</td>
             <td>@transaction.Reference</td>
-            <td>@(transaction.Amount.ToString("C", CultureInfo.CreateSpecificCulture("en-ZA")))</td>
-            @* <td>@($"{transaction.Amount:C}")</td> *@
+            @* <td>@(transaction.Amount.ToString("C", CultureInfo.CreateSpecificCulture("en-ZA")))</td> *@
+            <td>@($"{transaction.Amount:C}")</td>
             <td>
                 <form method="post" asp-page-handler="Delete" asp-route-id="@transaction.Id">
                     <button class="btn btn-danger">Delete</button>

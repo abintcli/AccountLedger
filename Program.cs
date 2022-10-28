@@ -1,3 +1,6 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,8 +9,17 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-app.UseRequestLocalization(new RequestLocalizationOptions{
-    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-ZA"),
+// var culture = CultureInfo.CreateSpecificCulture("en-ZA");
+var cultures = new List<CultureInfo>{
+    new CultureInfo("en-za")
+};
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(new CultureInfo("en-za")),
+    // DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-ZA"),
+    SupportedCultures = cultures,
+    SupportedUICultures = cultures
 });
 
 // Configure the HTTP request pipeline.
