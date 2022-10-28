@@ -361,5 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# database files
 AccountLedger.API/AccountLedger.API.db
 AccountLedger.API/Migrations/
