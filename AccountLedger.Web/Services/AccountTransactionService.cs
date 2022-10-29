@@ -87,14 +87,16 @@ namespace AccountLedger.Services
             return await HttpClientExtensions.ReadContentAsync<AccountTransaction>(response);
         }
 
-        public async void Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var response = await _client.DeleteAsync($"/transaction/{id}");
 
             await HttpClientExtensions.ReadContentAsync<object>(response);
+
+            return true;
         }
 
-        public async void Update(AccountTransaction transaction, int id)
+        public async Task<bool> Update(AccountTransaction transaction, int id)
         {
             //this can be cleaned up alot
             var json = JsonSerializer.Serialize(transaction);
@@ -102,6 +104,9 @@ namespace AccountLedger.Services
             var response = await _client.PutAsync($"/transaction/{id}", data);
 
             await HttpClientExtensions.ReadContentAsync<object>(response);
+            
+            // an exception would be thrown if the update failed. need to refactor to include error messages
+            return true;
         }
     }
 }

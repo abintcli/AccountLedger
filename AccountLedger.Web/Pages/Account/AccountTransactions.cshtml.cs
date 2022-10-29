@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AccountLedger.Pages
 {
-    public class AccountTransactionModel : PageModel
+    public class AccountTransactionsModel : PageModel
     {
 
         private readonly IAccountTransactionService _service;
@@ -15,7 +15,7 @@ namespace AccountLedger.Pages
         public AccountTransaction NewTransaction { get; set; } = new();
         public List<AccountTransaction> transactions = new();
 
-        public AccountTransactionModel(IAccountTransactionService service)
+        public AccountTransactionsModel(IAccountTransactionService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
@@ -28,34 +28,27 @@ namespace AccountLedger.Pages
             return Page();
         }
 
-        // public async Task<IActionResult> OnPostAsync()
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return Page();
-        //     }
-        // }
-        public IActionResult OnPostEdit(int id)
+        public async Task<IActionResult> OnPostEditAsync(int id)
         {
             //_service.Update(id);
             return RedirectToAction("Get");
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
             // AccountTransactionService.Add(NewTransaction);
-            _service.Add(NewTransaction);
+            await _service.Add(NewTransaction);
             return RedirectToAction("get");
         }
 
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             // AccountTransactionService.Delete(id);
-            _service.Delete(id);
+            await _service.Delete(id);
             return RedirectToAction("Get");
         }
     }
