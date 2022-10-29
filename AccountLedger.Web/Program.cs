@@ -1,4 +1,6 @@
 using System.Globalization;
+using AccountLedger.Services;
+using AccountLedger.Web.Services;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient<IAccountTransactionService, AccountTransactionService>(c =>
+    c.BaseAddress = new Uri("https://localhost:7170/"));
 
 var app = builder.Build();
 

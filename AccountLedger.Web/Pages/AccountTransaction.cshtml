@@ -19,7 +19,7 @@
 
         <label asp-for="NewTransaction.Type">Transaction Type</label>
         <select asp-for="NewTransaction.Type" asp-items="Html.GetEnumSelectList<TransactionType>()"
-            class="mr-5"></select>
+                class="mr-5"></select>
 
         <label asp-for="NewTransaction.Reference">Reference</label>
         <input type="text" asp-for="NewTransaction.Reference" class="mr-5">
@@ -38,7 +38,7 @@
             <th scope="col">Type</th>
             <th scope="col">Reference</th>
             <th scope="col">Amount</th>
-            <th scope="col">Delete</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     @foreach (var transaction in Model.transactions)
@@ -50,14 +50,23 @@
             @* <td>@(transaction.Amount.ToString("C", CultureInfo.CreateSpecificCulture("en-ZA")))</td> *@
             <td>@($"{transaction.Amount:C}")</td>
             <td>
-                <form method="post" asp-page-handler="Delete" asp-route-id="@transaction.Id">
-                    <button class="btn btn-danger">Delete</button>
-                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@transaction.Id">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <form method="put" asp-page-handler="Update" asp-route-id="@transaction.Id">
+                            <button class="btn btn-warning disabled">Update</button>
+                        </form>
+                    </div>
+                </div>
             </td>
         </tr>
     }
 </table>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

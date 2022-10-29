@@ -32,7 +32,7 @@ namespace AccountLedger.Models
 
         [Required]
         //may be able to remove this - do i want to limit the amount?
-        [Range(0.01, 100000.00)]
+        //[Range(0.01, 100000.00)]
         public decimal Amount { get; set; }
 
     }

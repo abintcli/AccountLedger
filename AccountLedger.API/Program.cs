@@ -63,4 +63,4 @@ app.MapDelete("/transaction/{id}", async (TransactionDb db, int id) =>
     return Results.Ok();
 });
 
-app.Run();
+app.Run("https://localhost:7170");
