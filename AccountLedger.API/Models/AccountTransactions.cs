@@ -9,6 +9,7 @@ namespace AccountLedger.API.Models
     public class AccountTransaction
     {
         public int Id { get; set; }
+        // public int AccountId { get; set; }
         public DateTime Date { get; set; }
         public TransactionType Type { get; set; }
         public string Reference { get; set; }

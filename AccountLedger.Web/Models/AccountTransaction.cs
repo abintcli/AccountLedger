@@ -9,6 +9,7 @@ namespace AccountLedger.Models
     public class AccountTransaction
     {
         public int Id { get; set; }
+        // public int AccountId { get; set;}
 
         [Required]
         public DateTime Date
