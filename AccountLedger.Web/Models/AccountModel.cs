@@ -7,12 +7,13 @@ using AccountLedger.Models;
 
 namespace AccountLedger.Web.Models
 {
-    public class Account
+    public class AccountModel
     {
         public int Id { get; set; }
         public List<AccountTransaction>? Transactions { get; set; }
         
         [Required]
         public string Name { get; set; }
+
     }
 }

@@ -6,7 +6,7 @@ using AccountLedger.Models;
 
 namespace AccountLedger.Web.Services
 {
-    public interface IAccountTransactionService
+    public interface ITransactionService
     {
         public Task<List<AccountTransaction>> GetAll();
         public Task<AccountTransaction?> Get(int id);

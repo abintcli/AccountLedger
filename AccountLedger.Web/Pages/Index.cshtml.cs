@@ -12,8 +12,11 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public async Task<IActionResult> OnGet()
     {
+        if (!User.Identity.IsAuthenticated)
+            return Redirect("/Account/Index");
+        else return Page();
 
     }
 }

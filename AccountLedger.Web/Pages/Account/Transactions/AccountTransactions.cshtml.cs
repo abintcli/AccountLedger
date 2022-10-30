@@ -9,13 +9,13 @@ namespace AccountLedger.Pages
     public class AccountTransactionsModel : PageModel
     {
 
-        private readonly IAccountTransactionService _service;
+        private readonly ITransactionService _service;
 
         [BindProperty]
         public AccountTransaction NewTransaction { get; set; } = new();
         public List<AccountTransaction> transactions = new();
 
-        public AccountTransactionsModel(IAccountTransactionService service)
+        public AccountTransactionsModel(ITransactionService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }

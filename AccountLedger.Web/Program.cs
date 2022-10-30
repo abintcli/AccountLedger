@@ -8,8 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddHttpClient<IAccountTransactionService, AccountTransactionService>(c =>
-    c.BaseAddress = new Uri("https://localhost:7170/"));
+var apiUri = new Uri("https://localhost:7170/");
+builder.Services.AddHttpClient<ITransactionService, TransactionService>(c =>
+    c.BaseAddress = apiUri
+    );
+builder.Services.AddHttpClient<IAccountService, AccountService>(c =>
+    c.BaseAddress = apiUri
+    );
+
+//builder.Services.AddHttpClient<IAccountService, AccountService>();
 
 var app = builder.Build();
 
