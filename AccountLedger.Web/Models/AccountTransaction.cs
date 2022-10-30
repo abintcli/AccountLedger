@@ -36,6 +36,7 @@ namespace AccountLedger.Models
         //[Range(0.01, 100000.00)]
         public decimal Amount { get; set; }
 
+        public int AccountId{get;set;}
     }
 
     public enum TransactionType { Credit, Debit }

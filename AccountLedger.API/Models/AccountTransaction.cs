@@ -14,6 +14,7 @@ namespace AccountLedger.API.Models
         public TransactionType Type { get; set; }
         public string Reference { get; set; }
         public decimal Amount { get; set; }
+        public int AccountId{get;set;}
     }
 
     public enum TransactionType { Credit, Debit }
@@ -22,5 +23,6 @@ namespace AccountLedger.API.Models
     {
         public TransactionDb(DbContextOptions options) : base(options) { }
         public DbSet<AccountTransaction> Transactions { get; set; } = null!;
+        public DbSet<Account> Accounts { get; set; } = null!;
     }
 }
