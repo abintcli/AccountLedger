@@ -50,10 +50,10 @@ namespace AccountLedger.Pages.Account
             var accounmodel = await _service.Delete(id.Value);
             //var accounmodel = await _context.Account.FindAsync(id);
 
-            if (accounmodel != false)
-            {
-                return NotFound();
-            }
+            //if (accounmodel != false)
+            //{
+            //    return NotFound();
+            //}
 
             return RedirectToPage("./Index");
         }

@@ -21,10 +21,19 @@ namespace AccountLedger.Services
             _client = client;
         }
 
-        public async Task<List<AccountTransaction>> GetAll()
+        public async Task<List<AccountTransaction>> GetAll(int accountId)
         {
             //need to have a look again
-            var response = await _client.GetAsync("/account/{accountId}/transactions");
+            var response = await _client.GetAsync($"/account/{accountId}/transactions");
+
+            // return await response.ReadContentAsync<List<AccountTransaction>>();
+            return await HttpClientExtensions.ReadContentAsync<List<AccountTransaction>>(response);
+        }
+
+        public async Task<List<AccountTransaction>> GetAllFilter(int accountId, TransactionType type)
+        {
+            //need to have a look again
+            var response = await _client.GetAsync($"/account/{accountId}/transactions/{type}");
 
             // return await response.ReadContentAsync<List<AccountTransaction>>();
             return await HttpClientExtensions.ReadContentAsync<List<AccountTransaction>>(response);
@@ -60,7 +69,7 @@ namespace AccountLedger.Services
         {
             //this can be cleaned up alot
             var json = JsonSerializer.Serialize(transaction);
-            var data = new StringContent(json);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PutAsync($"/transaction/{id}", data);
 
             await HttpClientExtensions.ReadContentAsync<object>(response);

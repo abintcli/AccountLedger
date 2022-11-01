@@ -8,7 +8,8 @@ namespace AccountLedger.Web.Services
 {
     public interface ITransactionService
     {
-        public Task<List<AccountTransaction>> GetAll();
+        public Task<List<AccountTransaction>> GetAll(int accountId);
+        public Task<List<AccountTransaction>> GetAllFilter(int accountId, TransactionType type);
         public Task<AccountTransaction?> Get(int id);
         public Task<AccountTransaction> Add(AccountTransaction transaction);
         public Task<bool> Delete(int id);

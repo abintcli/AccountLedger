@@ -1,0 +1,45 @@
+﻿@page
+@model AccountLedger.Pages.Account.Transaction.DetailsModel
+
+<h1>Details</h1>
+
+<div>
+    @*<h4>AccountTransaction</h4>*@
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountTransaction.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountTransaction.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountTransaction.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountTransaction.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountTransaction.Reference)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountTransaction.Reference)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountTransaction.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountTransaction.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountTransaction.AccountId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountTransaction.AccountId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AccountTransaction?.Id">Edit</a> |
+    <a asp-page="./Index" asp-route-id="@Model.AccountId">Back to List</a>
+</div>

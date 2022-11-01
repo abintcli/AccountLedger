@@ -23,7 +23,7 @@ namespace AccountLedger.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // transactions = AccountTransactionService.GetAll();
-            transactions = await _service.GetAll();
+            transactions = await _service.GetAll(0);
 
             return Page();
         }

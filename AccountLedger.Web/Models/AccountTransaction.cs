@@ -31,9 +31,14 @@ namespace AccountLedger.Models
         [Required]
         public string? Reference { get; set; }
 
-        [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0}")]
+        //[UIHint("Currency")]
         //may be able to remove this - do i want to limit the amount?
-        //[Range(0.01, 100000.00)]
+        ////[Range(0.01, 100000.00)]
+        //[Required(ErrorMessage = "Amount is required")]
+        ////[Range(typeof(decimal), "0.01", "100000.00", ErrorMessage = "Enter decimal value")]
+        //[RegularExpression(@"^\[0-9]{1,6}\.[0-9]{2}", ErrorMessage = "Enter decimal value of format 0.00")]
+        [Required]
         public decimal Amount { get; set; }
 
         public int AccountId{get;set;}

@@ -23,8 +23,43 @@ app.UseSwaggerUI(c =>
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Todo API V1");
     });
 
+//get sum of account
+//decimal AccountSum(int id)
+//{
+//    return 0;
+//}
+
 //Account
-app.MapGet("/accounts", async (TransactionDb db) => await db.Accounts.ToListAsync());
+app.MapGet("/accounts", async (TransactionDb db) =>
+{
+    //this is not the best approach, have to search the db multiple times, must be a better way to do this
+    //var test = await db.Accounts.ForEachAsync(async a => a.Total = await db.Transactions.SumAsync(t => t.Amount));
+
+
+    var accounts = await db.Accounts.ToListAsync();
+    //{
+    //    Id = a.Id,
+    //    Transactions = a.Transactions,
+    //    Name =a.Name,
+    //    Total = db.Transactions.Where(t=>t.AccountId == a.Id).Sum(t =>  t.Amount)
+    //}).ToListAsync();
+
+    
+    //must be a better way of doing this, without getting all transactions
+    //var test = await db.Accounts.Include(a=>a.Transactions).ToListAsync();
+
+
+    //var test4 = await db.Accounts.Include(a => a.Total=a.Transactions.Sum(t=>t.Amount)).ToListAsync();
+    //var test2 = await db.Accounts.ForEachAsync(a=> { a.Total = 0;return a; });
+    //var test2 = await db.Accounts.ForEachAsync(a=> { a.Total = 0;return a; });
+
+
+
+    //firstTable.Where(x => x.Input).GroupBy(x => x.GoodsID).Select(x => x.Sum(y => y.Quantity));
+
+    //var test = await db.Accounts.ForEachAsync(async a => a.Total = await db.Transactions.SumAsync(t => t.Type == TransactionType.Credit ? t.Amount : t.Amount * -1));
+    return accounts;
+});
 app.MapGet("/account/{id}", async (TransactionDb db, int id) => await db.Accounts.FindAsync(id));
 app.MapPost("/account", async (TransactionDb db, Account account) =>
 {
@@ -49,15 +84,22 @@ app.MapDelete("/account/{id}", async (TransactionDb db, int id) =>
     db.Accounts.Remove(account);
     //need to delete all transactions linked to account
     var transactions = await db.Transactions.Where(t => t.AccountId == id).ToListAsync();
-    if (transactions is not null && transactions.Count != 0) 
+    if (transactions is not null && transactions.Count != 0)
         db.Transactions.RemoveRange(transactions);
     await db.SaveChangesAsync();
     return Results.Ok();
 });
 
 //Transactions
-app.MapGet("/account/{accountId}/transactions/", async (TransactionDb db, int accountId) => await db.Transactions.Where(t => t.AccountId == accountId).ToListAsync());
-app.MapGet("/account/{accountId}/transactions/{type}", async (TransactionDb db, int accountId, TransactionType type) => await db.Transactions.Where(t => t.AccountId == accountId && t.Type == type).ToListAsync());
+app.MapGet("/account/{accountId}/transactions", async (TransactionDb db, int accountId) =>
+{
+    var result = await db.Transactions.Where(t => t.AccountId == accountId).ToListAsync();
+    return result;
+});
+app.MapGet("/account/{accountId}/transactions/{type}", async (TransactionDb db, int accountId, TransactionType type) =>
+{
+    return await db.Transactions.Where(t => t.AccountId == accountId && t.Type == type).ToListAsync();
+});
 app.MapGet("/transaction/{id}", async (TransactionDb db, int id) => await db.Transactions.FindAsync(id));
 app.MapPost("/transaction", async (TransactionDb db, AccountTransaction transaction) =>
 {
