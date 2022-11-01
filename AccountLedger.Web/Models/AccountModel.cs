@@ -7,7 +7,7 @@ using AccountLedger.Models;
 
 namespace AccountLedger.Web.Models
 {
-    public class AccountModel
+    public class AccountModel//: IEquatable<AccountModel>
     {
         public int Id { get; set; }
         public List<AccountTransaction>? Transactions { get; set; }
